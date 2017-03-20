@@ -20,6 +20,19 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->view('welcome_message');
+		$this->home();
 	}
+
+	public function home()
+	{
+		$this->load->model('model_fixture');
+
+		$data['title'] = '2017 AFL Tipping Competition';
+		$data['page_header'] = 'The 2017 AFL Teams';
+		$data['Team'] = $this->model_fixture->getTeam();
+		$data['Fixture'] = $this->model_fixture->getFixture();
+
+		$this->load->view('welcome_message', $data);
+	}
+
 }
