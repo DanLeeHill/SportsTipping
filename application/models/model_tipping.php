@@ -1,6 +1,6 @@
 <?php
 
-  class model_fixture extends CI_Model {
+  class model_tipping extends CI_Model {
 
     function __construct() {
 
@@ -21,7 +21,7 @@
 
     function submit(){
 
-      $this->load->view('welcome_message',$this->view_data);
+      $this->load->view('view_tipping',$this->view_data);
 
     }
     function getRound(){
@@ -44,7 +44,7 @@
     }
 
     function getFixture(){
-      $query = $this->db->query('SELECT Game, Date, (SELECT Team FROM 2017_AFL_Teams WHERE 2017_AFL_Fixture.Home = 2017_AFL_Teams.ID) AS Home_Team, (SELECT Team FROM 2017_AFL_Teams WHERE 2017_AFL_Fixture.Away = 2017_AFL_Teams.ID) AS Away_Team, Ground, Time_EST FROM 2017_AFL_Fixture WHERE Round = (SELECT Round FROM 2017_AFL_Fixture WHERE Date >= CURDATE() ORDER BY date ASC LIMIT 1)');
+      $query = $this->db->query('SELECT Game, Date, (SELECT Team FROM 2017_AFL_Teams WHERE 2017_AFL_Fixture.Home = 2017_AFL_Teams.ID) AS Home_Team, (SELECT TeamCode FROM 2017_AFL_Teams WHERE 2017_AFL_Fixture.Home = 2017_AFL_Teams.ID) AS Home_Team_Code, (SELECT Team FROM 2017_AFL_Teams WHERE 2017_AFL_Fixture.Away = 2017_AFL_Teams.ID) AS Away_Team, (SELECT TeamCode FROM 2017_AFL_Teams WHERE 2017_AFL_Fixture.Away = 2017_AFL_Teams.ID) AS Away_Team_Code, Ground, Time_EST FROM 2017_AFL_Fixture WHERE Round = (SELECT Round FROM 2017_AFL_Fixture WHERE Date >= CURDATE() ORDER BY date ASC LIMIT 1)');
 
       if ($query->num_rows()>0) {
         return $query->result();

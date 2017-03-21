@@ -82,8 +82,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 	<div id="body">
 
-<?php echo form_open($base_url . 'model_fixture/submit'); ?>
+<?php echo form_open('tipping'); ?>
 <fieldset>
+
+
 
 <!-- Form Name -->
 <legend>
@@ -97,6 +99,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 	 ?></legend>
 
+	 <?php if (isset($message)) { ?>
+	 <CENTER><h3 style="color:green;">Data inserted successfully</h3></CENTER><br>
+	 <?php } ?>
+	 <div class="form-group">
 
 <!-- Select Tips For The Round -->
 <?php
@@ -108,16 +114,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	}elseif ($c!=0){
 		$Margin = '';
 		}
-		echo '
-		<div class="form-group">
-		  <label class="col-md-4 control-label" for="selectbasic">Game '.$object->Game. ' '. $object->Home_Team.' V '.$object->Away_Team.' at '.$object->Ground.' '.$object->Time_EST . '</label>
-		  <div class="col-md-4">
-		    <select id="selectbasic" name="selectbasic" class="form-control">
-		      <option value="1">'.$object->Home_Team.'</option>
-		      <option value="2">'.$object->Away_Team.'</option>
-		    </select>
-		  </div>
-		</div>'.
+		echo form_label($object->Home_Team.' V '.$object->Away_Team.' at '.$object->Ground.' '.$object->Time_EST);
+		echo form_error('tipERR');
+		$match = array($object->Home_Team,$object->Away_Team,'Draw');
+		echo form_dropdown('Your Tip',$match,'','class="form-control"').
 		$Margin;
 		$c++;
 
@@ -128,7 +128,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <div class="form-group">
 	<? echo form_submit(array('name'=>'Submit', 'class'=>'btn btn-success'),'Submit'); ?>
 </div>
-
+</div>
 </fieldset>
 <?php form_close(); ?>
 
