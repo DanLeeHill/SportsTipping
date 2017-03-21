@@ -28,9 +28,18 @@ class Welcome extends CI_Controller {
 		$this->load->model('model_fixture');
 
 		$data['title'] = '2017 AFL Tipping Competition';
-		$data['page_header'] = 'The 2017 AFL Teams';
+		$data['page_header'] = 'Select your tips';
+		$data['Round'] = $this->model_fixture->getRound();
 		$data['Team'] = $this->model_fixture->getTeam();
 		$data['Fixture'] = $this->model_fixture->getFixture();
+		$data['MarginSelector'] =
+		'<!-- Text input for margin-->
+		<div class="form-group">
+		  <label class="col-md-4 control-label" for="textinput">Margin</label>
+		  <div class="col-md-4">
+		  <input id="textinput" name="textinput" type="number" placeholder="placeholder" class="form-control input-md">
+		  </div>
+		</div>';
 
 		$this->load->view('welcome_message', $data);
 	}
